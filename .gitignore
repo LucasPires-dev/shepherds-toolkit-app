@@ -27,3 +27,4 @@ dist-ssr
 .npmrc
 .vercel
 .env*
+!.env.example

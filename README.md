@@ -1,69 +1,60 @@
-# React + TypeScript + Vite
+# Shepherd's Toolkit · Web
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Front-end do **Shepherd's Toolkit**, uma plataforma de gestão para pastores e líderes de igreja. Reúne em um só painel membros, finanças, agenda, metas, Bíblia, planos de leitura, um editor de sermões e o **Caleb**, assistente de IA que conhece os escritos do usuário.
 
-Currently, two official plugins are available:
+> API: [LucasPires-dev-shepherds-toolkit-api](https://github.com/LucasPires-dev/LucasPires-dev-shepherds-toolkit-api) · Integra com o [Koinonia](https://github.com/LucasPires-dev/koinonia-app)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Funcionalidades
 
-## Expanding the ESLint configuration
+- **Dashboard** com visão geral da igreja e do pastor
+- **Membros, finanças, metas e pedidos de oração**
+- **Agenda** de eventos
+- **Bíblia** com várias versões, notas por versículo e **planos de leitura**
+- **Escritos**: editor rico (TipTap, com tabelas e alinhamento) e exportação para **Word (.docx)** e **PDF**
+- **Biblioteca** com destaques
+- **Caleb**, assistente de IA em painel lateral, com respostas baseadas nos escritos e anotações do usuário
+- **Assinatura** do plano Pro via Stripe, com acompanhamento da cota de IA
+- **Conexão com o Koinonia** para levar eventos e escritos ao WhatsApp
+- **Tema claro e escuro**, rotas protegidas por login
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Stack
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+React 19 · TypeScript · Vite · Redux Toolkit · TanStack Query · TanStack Table · React Router · Material UI · Tailwind CSS · TipTap · Axios
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## 🧠 Destaques técnicos
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **Modo demonstração**: com `VITE_USE_MOCK_DATA=true`, um *adapter* do Axios e um `baseQuery` mockado do RTK Query respondem com dados de exemplo. O app inteiro roda **sem backend**.
+- **Estado em duas camadas**: Redux Toolkit para o estado de interface (módulos ativos, perfil, Bíblia) e TanStack Query para os dados do servidor.
+- **Exportação no navegador**: escritos viram `.docx` e PDF sem passar pelo servidor.
+- **Camada de serviços tipada**: cada domínio tem seu serviço e seus tipos (`src/services`, `src/types`).
+
+## 🚀 Como rodar
+
+```bash
+npm install
+cp .env.example .env
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+| Variável | Uso |
+|---|---|
+| `VITE_API_URL` | URL da API (ex.: `http://127.0.0.1:8000/api/`) |
+| `VITE_USE_MOCK_DATA` | `true` para rodar com dados de exemplo, sem backend |
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Outros scripts: `npm run build`, `npm run typecheck`, `npm run lint`.
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 📁 Estrutura
+
 ```
+src/
+  components/   # telas por módulo (Members, Finances, Writings, Caleb…)
+  feature/      # slices do Redux
+  services/     # chamadas à API por domínio
+  mocks/        # dados e adapters do modo demonstração
+  context/      # autenticação e tema
+  types/
+```
+
+---
+
+Desenvolvido por [Lucas C. Pires](https://github.com/LucasPires-dev) · Full-stack Python
